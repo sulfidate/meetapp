@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as atatus from 'atatus-spa'
-atatus.config('772027a976994112a3d3fb778b96ba82').install()
+atatus.config('bd3637eb11534fb6818085221cf2ba9e').install()
 
 ReactDOM.render(
   <React.StrictMode>
