@@ -73,9 +73,14 @@ class App extends Component {
           updateNumberOfEvents={(number) => {
             this.updateNumberOfEvents(number)
           }}
+          updateEvents={this.updateEvents}
         />
 
-        <EventList events={events} numberOfEvents={numberOfEvents} />
+        <EventList
+          events={events}
+          numberOfEvents={numberOfEvents}
+          updateEvents={this.updateEvents}
+        />
       </div>
     )
   }
