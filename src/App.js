@@ -5,6 +5,7 @@ import EventList from './EventList'
 import CitySearch from './CitySearch'
 import NumberOfEvents from './NumberOfEvents'
 import { getEvents, extractLocations } from './api'
+import { OfflineAlert } from './Alert'
 
 class App extends Component {
   state = {
@@ -21,6 +22,16 @@ class App extends Component {
         this.setState({
           events: events.slice(0, this.state.numberOfEvents),
           locations: extractLocations(events),
+        })
+      }
+      if (!navigator.onLine) {
+        this.setState({
+          OfflineAlertText:
+            'There is no internet connection - event-list is loading from cache!',
+        })
+      } else {
+        this.setState({
+          OfflineAlertText: '',
         })
       }
     })
@@ -59,7 +70,7 @@ class App extends Component {
   }
 
   render() {
-    const { events, locations, numberOfEvents } = this.state
+    const { events, locations, numberOfEvents, OfflineAlertText } = this.state
 
     return (
       <div className='App'>
@@ -81,6 +92,7 @@ class App extends Component {
           numberOfEvents={numberOfEvents}
           updateEvents={this.updateEvents}
         />
+        <OfflineAlert text={OfflineAlertText} />
       </div>
     )
   }
