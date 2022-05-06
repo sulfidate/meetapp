@@ -4,70 +4,38 @@ import './nprogress.css'
 import EventList from './EventList'
 import CitySearch from './CitySearch'
 import NumberOfEvents from './NumberOfEvents'
-// import { getEvents, extractLocations } from './api'
+import { getEvents, extractLocations } from './api'
 import { OfflineAlert } from './Alert'
-import WelcomeScreen from './WelcomeScreen'
-import { getEvents, extractLocations, checkToken, getAccessToken } from './api'
 
 class App extends Component {
   state = {
     events: [],
     locations: [],
-    showWelcomeScreen: undefined,
     numberOfEvents: 32,
     location: 'all',
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this.mounted = true
-    const accessToken = localStorage.getItem('access_token')
-    const isTokenValid = (await checkToken(accessToken)).error ? false : true
-    const searchParams = new URLSearchParams(window.location.search)
-    const code = searchParams.get('code')
-    this.setState({ showWelcomeScreen: !(code || isTokenValid) })
-    if ((code || isTokenValid) && this.mounted) {
-      getEvents().then((events) => {
-        if (this.mounted) {
-          this.setState({
-            events: events.slice(0, this.state.numberOfEvents),
-            locations: extractLocations(events),
-          })
-        }
-        if (!navigator.onLine) {
-          this.setState({
-            OfflineAlertText:
-              'There is no internet connection - event-list is loading from cache!',
-          })
-        } else {
-          this.setState({
-            OfflineAlertText: '',
-          })
-        }
-      })
-    }
+    getEvents().then((events) => {
+      if (this.mounted) {
+        this.setState({
+          events: events.slice(0, this.state.numberOfEvents),
+          locations: extractLocations(events),
+        })
+      }
+      if (!navigator.onLine) {
+        this.setState({
+          OfflineAlertText:
+            'There is no internet connection - event-list is loading from cache!',
+        })
+      } else {
+        this.setState({
+          OfflineAlertText: '',
+        })
+      }
+    })
   }
-
-  // componentDidMount() {
-  //   this.mounted = true
-  //   getEvents().then((events) => {
-  //     if (this.mounted) {
-  //       this.setState({
-  //         events: events.slice(0, this.state.numberOfEvents),
-  //         locations: extractLocations(events),
-  //       })
-  //     }
-  //     if (!navigator.onLine) {
-  //       this.setState({
-  //         OfflineAlertText:
-  //           'There is no internet connection - event-list is loading from cache!',
-  //       })
-  //     } else {
-  //       this.setState({
-  //         OfflineAlertText: '',
-  //       })
-  //     }
-  //   })
-  // }
 
   componentWillUnmount() {
     this.mounted = false
@@ -102,9 +70,6 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.showWelcomeScreen === undefined)
-      return <div className='App' />
-
     const { events, locations, numberOfEvents, OfflineAlertText } = this.state
 
     return (
@@ -128,13 +93,6 @@ class App extends Component {
           updateEvents={this.updateEvents}
         />
         <OfflineAlert text={OfflineAlertText} />
-
-        <WelcomeScreen
-          showWelcomeScreen={this.state.showWelcomeScreen}
-          getAccessToken={() => {
-            getAccessToken()
-          }}
-        />
       </div>
     )
   }
