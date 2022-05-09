@@ -32,16 +32,16 @@ class App extends Component {
             events: events.slice(0, this.state.numberOfEvents),
             locations: extractLocations(events),
           })
-        }
-        if (!navigator.onLine) {
-          this.setState({
-            OfflineAlertText:
-              'There is no internet connection - event-list is loading from cache!',
-          })
-        } else {
-          this.setState({
-            OfflineAlertText: '',
-          })
+          if (!navigator.onLine) {
+            this.setState({
+              OfflineAlertText:
+                'There is no internet connection - event-list is loading from cache!',
+            })
+          } else {
+            this.setState({
+              OfflineAlertText: '',
+            })
+          }
         }
       })
     }
@@ -77,6 +77,18 @@ class App extends Component {
       },
       this.updateEvents(this.state.location, numberOfEvents)
     )
+  }
+
+  getData = () => {
+    const { locations, events } = this.state
+    const data = locations.map((location) => {
+      const number = events.filter(
+        (event) => event.location === location
+      ).length
+      const city = location.split(', ').shift()
+      return { city, number }
+    })
+    return data
   }
 
   render() {
