@@ -55,30 +55,30 @@ class App extends Component {
   }
 
   updateEvents = (location = 'all', number = this.state.numberOfEvents) => {
-    getEvents().then((events) => {
-      const locationEvents =
-        location === 'all'
-          ? events.slice(0, number)
-          : events
-              .filter((event) => event.location === location)
-              .slice(0, number)
-      if (this.mounted) {
-        this.setState({
-          events: locationEvents.slice(0, number),
-          location,
-        })
-      }
-      if (!navigator.onLine) {
-        this.setState({
-          infoText:
-            'There is no internet connection - EventList is loading from cache!',
-        })
-      } else {
-        this.setState({
-          infoText: '',
-        })
-      }
-    })
+    if (navigator.onLine) {
+      this.setState({
+        infoText: '',
+      })
+      getEvents().then((events) => {
+        const locationEvents =
+          location === 'all'
+            ? events.slice(0, number)
+            : events
+                .filter((event) => event.location === location)
+                .slice(0, number)
+        if (this.mounted) {
+          this.setState({
+            events: locationEvents.slice(0, number),
+            location,
+          })
+        } else {
+          this.setState({
+            infoText:
+              'There is no internet connection - event-list is loading from cache!',
+          })
+        }
+      })
+    }
   }
 
   updateNumberOfEvents = (numberOfEvents) => {
