@@ -27,14 +27,40 @@ class App extends Component {
     if ((code || isTokenValid) && this.mounted) {
       getEvents().then((events) => {
         if (this.mounted) {
+<<<<<<< HEAD
           this.setState({
             events: events.slice(0, this.state.numberOfEvents),
             locations: extractLocations(events),
           })
+=======
+          this.setState({ events, locations: extractLocations(events) })
+>>>>>>> parent of 71c4f97 (Merge pull request #1 from sulfidate/task4.8-final)
         }
       })
     }
   }
+
+  // componentDidMount() {
+  //   this.mounted = true
+  //   getEvents().then((events) => {
+  //     if (this.mounted) {
+  //       this.setState({
+  //         events: events.slice(0, this.state.numberOfEvents),
+  //         locations: extractLocations(events),
+  //       })
+  //     }
+  //     if (!navigator.onLine) {
+  //       this.setState({
+  //         OfflineAlertText:
+  //           'There is no internet connection - event-list is loading from cache!',
+  //       })
+  //     } else {
+  //       this.setState({
+  //         OfflineAlertText: '',
+  //       })
+  //     }
+  //   })
+  // }
 
   componentWillUnmount() {
     this.mounted = false
