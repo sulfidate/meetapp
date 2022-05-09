@@ -55,25 +55,30 @@ class App extends Component {
   }
 
   updateEvents = (location = 'all', number = this.state.numberOfEvents) => {
-    if (navigator.onLine) {
-      getEvents().then((events) => {
-        const locationEvents =
-          location === 'all'
-            ? events.slice(0, number)
-            : events
-                .filter((event) => event.location === location)
-                .slice(0, number)
-
+    getEvents().then((events) => {
+      const locationEvents =
+        location === 'all'
+          ? events.slice(0, number)
+          : events
+              .filter((event) => event.location === location)
+              .slice(0, number)
+      if (this.mounted) {
         this.setState({
           events: locationEvents.slice(0, number),
           location,
         })
-      })
-      this.setState({
-        OfflineAlertText:
-          'There is no internet connection - event-list is loading from cache!',
-      })
-    }
+      }
+      if (!navigator.onLine) {
+        this.setState({
+          infoText:
+            'There is no internet connection - EventList is loading from cache!',
+        })
+      } else {
+        this.setState({
+          infoText: '',
+        })
+      }
+    })
   }
 
   updateNumberOfEvents = (numberOfEvents) => {
@@ -93,6 +98,7 @@ class App extends Component {
 
     return (
       <div className='App'>
+        <OfflineAlert text={this.state.infoText} />
         <CitySearch
           locations={locations}
           numberOfEvents={numberOfEvents}
