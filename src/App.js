@@ -28,31 +28,13 @@ class App extends Component {
 
     if ((code || isTokenValid) && this.mounted) {
       getEvents().then((events) => {
-        if (navigator.onLine && this.mounted) {
-          this.setState({
-            events: events.slice(0, this.state.numberOfEvents),
-            locations: extractLocations(events),
-          })
-        } else {
-          this.setState({
-            OfflineAlertText:
-              'There is no internet connection - event list is loading from cache!',
-          })
-        }
+        this.setState({
+          events: events.slice(0, this.state.numberOfEvents),
+          locations: extractLocations(events),
+        })
       })
     }
   }
-
-  // if (!navigator.onLine) {
-  //   this.setState({
-  //     OfflineAlertText:
-  //       'There is no internet connection - event-list is loading from cache!',
-  //   })
-  // } else {
-  //   this.setState({
-  //     OfflineAlertText: '',
-  //   })
-  // }
 
   componentWillUnmount() {
     this.mounted = false
@@ -74,6 +56,12 @@ class App extends Component {
         events: locationEvents.slice(0, number),
         location,
       })
+      if (!navigator.onLine) {
+        this.setState({
+          OfflineAlertText:
+            'There is no internet connection - event-list is loading from cache!',
+        })
+      }
     })
   }
 
