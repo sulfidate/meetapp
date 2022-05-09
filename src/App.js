@@ -36,6 +36,17 @@ class App extends Component {
     }
   }
 
+  // if (!navigator.onLine) {
+  //   this.setState({
+  //     OfflineAlertText:
+  //       'There is no internet connection - event-list is loading from cache!',
+  //   })
+  // } else {
+  //   this.setState({
+  //     OfflineAlertText: '',
+  //   })
+  // }
+
   componentWillUnmount() {
     this.mounted = false
     this.setState = (state, callback) => {
@@ -44,25 +55,25 @@ class App extends Component {
   }
 
   updateEvents = (location = 'all', number = this.state.numberOfEvents) => {
-    getEvents().then((events) => {
-      const locationEvents =
-        location === 'all'
-          ? events.slice(0, number)
-          : events
-              .filter((event) => event.location === location)
-              .slice(0, number)
+    if (navigator.onLine) {
+      getEvents().then((events) => {
+        const locationEvents =
+          location === 'all'
+            ? events.slice(0, number)
+            : events
+                .filter((event) => event.location === location)
+                .slice(0, number)
 
-      this.setState({
-        events: locationEvents.slice(0, number),
-        location,
-      })
-      if (!navigator.onLine) {
         this.setState({
-          OfflineAlertText:
-            'There is no internet connection - event-list is loading from cache!',
+          events: locationEvents.slice(0, number),
+          location,
         })
-      }
-    })
+      })
+      this.setState({
+        OfflineAlertText:
+          'There is no internet connection - event-list is loading from cache!',
+      })
+    }
   }
 
   updateNumberOfEvents = (numberOfEvents) => {
