@@ -27,21 +27,19 @@ class App extends Component {
     this.setState({ showWelcomeScreen: !(code || isTokenValid) })
 
     if ((code || isTokenValid) && this.mounted) {
-      if (navigator.onLine) {
-        getEvents().then((events) => {
-          if (this.mounted) {
-            this.setState({
-              events: events.slice(0, this.state.numberOfEvents),
-              locations: extractLocations(events),
-            })
-          }
-        })
-      } else {
-        this.setState({
-          OfflineAlertText:
-            'There is no internet connection - event list is loading from cache!',
-        })
-      }
+      getEvents().then((events) => {
+        if (navigator.onLine && this.mounted) {
+          this.setState({
+            events: events.slice(0, this.state.numberOfEvents),
+            locations: extractLocations(events),
+          })
+        } else {
+          this.setState({
+            OfflineAlertText:
+              'There is no internet connection - event list is loading from cache!',
+          })
+        }
+      })
     }
   }
 
