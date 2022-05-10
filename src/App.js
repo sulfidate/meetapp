@@ -15,52 +15,7 @@ class App extends Component {
     numberOfEvents: 32,
     location: 'all',
     showWelcomeScreen: undefined,
-  }
-
-  async componentDidMount() {
-    this.mounted = true
-
-    const accessToken = localStorage.getItem('access_token')
-    const isTokenValid = (await checkToken(accessToken)).error ? false : true
-    const searchParams = new URLSearchParams(window.location.search)
-    const code = searchParams.get('code')
-    this.setState({ showWelcomeScreen: !(code || isTokenValid) })
-    if ((code || isTokenValid) && this.mounted) {
-      getEvents().then((events) => {
-        if (navigator.onLine && this.mounted) {
-          this.setState({
-            events: events.slice(0, this.state.numberOfEvents),
-            locations: extractLocations(events),
-            OfflineAlertText: '',
-          })
-        } else if (!navigator.onLine) {
-          this.setState({
-            OfflineAlertText:
-              'There is no internet connection - event-list is loading from cache!',
-          })
-        }
-      })
-    }
-  }
-
-  componentWillUnmount() {
-    this.mounted = false
-  }
-
-  updateEvents = (location = 'all', number = this.state.numberOfEvents) => {
-    getEvents().then((events) => {
-      const locationEvents =
-        location === 'all'
-          ? events.slice(0, number)
-          : events
-              .filter((event) => event.location === location)
-              .slice(0, number)
-
-      this.setState({
-        events: locationEvents.slice(0, number),
-        location,
-      })
-    })
+    offlineText: '',
   }
 
   updateNumberOfEvents = (numberOfEvents) => {
@@ -72,33 +27,87 @@ class App extends Component {
     )
   }
 
-  render() {
-    if (this.state.showWelcomeScreen === undefined)
-      return <div className='App' />
+  updateEvents = (location, number = this.state.numberOfEvents) => {
+    getEvents().then((events) => {
+      if (number !== undefined) {
+        this.setState({
+          numberOfEvents: this.state.numberOfEvents,
+        })
+      }
+      // filter event list by location
+      let eventList =
+        location !== 'all'
+          ? events.filter((event) => event.location === location)
+          : events
 
-    const { events, locations, numberOfEvents, OfflineAlertText } = this.state
+      // Shorten event list
+      let shortEventList = eventList.slice(0, this.state.numberOfEvents)
+
+      // Assign value to events state, assign currentLocation
+      this.setState({
+        events: shortEventList,
+        currentLocation: location,
+      })
+    })
+  }
+
+  async componentDidMount() {
+    this.mounted = true
+    if (
+      navigator.onLine &&
+      !window.location.href.startsWith('http://localhost')
+    ) {
+      const accessToken = localStorage.getItem('access_token')
+      const isTokenValid = (await checkToken(accessToken)).error ? false : true
+      const searchParams = new URLSearchParams(window.location.search)
+      const code = searchParams.get('code')
+      this.setState({ showWelcomeScreen: !(code || isTokenValid) })
+      if ((code || isTokenValid) && this.mounted) {
+        getEvents().then((events) => {
+          if (this.mounted) {
+            this.setState({
+              events,
+              locations: extractLocations(events),
+              offlineText: '',
+            })
+          }
+        })
+      }
+    } else {
+      getEvents().then((events) => {
+        if (this.mounted) {
+          this.setState({
+            events,
+            locations: extractLocations(events),
+            offlineText:
+              'You are offline. The displayed event list may not be up to date.',
+            showWelcomeScreen: false,
+          })
+        }
+      })
+    }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false
+  }
+
+  render() {
+    const { events, locations, offlineText, showWelcomeScreen } = this.state
+
+    if (showWelcomeScreen === undefined) return <div className='App' />
 
     return (
       <div className='App'>
-        <CitySearch
-          locations={locations}
-          numberOfEvents={numberOfEvents}
-          updateEvents={this.updateEvents}
-        />
+        <div className='topBar'>
+          <h4 className='appTitle'>Meet App</h4>
+          <CitySearch locations={locations} updateEvents={this.updateEvents} />
+          <NumberOfEvents updateNumberOfEvents={this.updateNumberOfEvents} />
+        </div>
+        <OfflineAlert id='OfflineAlert' text={offlineText} />
 
-        <NumberOfEvents
-          updateNumberOfEvents={(number) => {
-            this.updateNumberOfEvents(number)
-          }}
-          updateEvents={this.updateEvents}
-        />
-
-        <EventList
-          events={events}
-          numberOfEvents={numberOfEvents}
-          updateEvents={this.updateEvents}
-        />
-        <OfflineAlert text={OfflineAlertText} />
+        <EventList events={events} />
+        <OfflineAlert text={this.state.OfflineAlertText} />
 
         <WelcomeScreen
           showWelcomeScreen={this.state.showWelcomeScreen}
