@@ -53,6 +53,7 @@ class App extends Component {
 
   async componentDidMount() {
     this.mounted = true
+
     if (
       navigator.onLine &&
       !window.location.href.startsWith('http://localhost')
@@ -74,8 +75,11 @@ class App extends Component {
         })
       }
     } else {
+
       getEvents().then((events) => {
         if (this.mounted) {
+
+         
           this.setState({
             events,
             locations: extractLocations(events),
@@ -92,6 +96,7 @@ class App extends Component {
     this.mounted = false
   }
 
+
   render() {
     const { events, locations, offlineText, showWelcomeScreen } = this.state
 
@@ -99,6 +104,7 @@ class App extends Component {
 
     return (
       <div className='App'>
+
         <div className='topBar'>
           <h4 className='appTitle'>Meet App</h4>
           <CitySearch locations={locations} updateEvents={this.updateEvents} />
