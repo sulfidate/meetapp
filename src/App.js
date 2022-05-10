@@ -75,11 +75,8 @@ class App extends Component {
         })
       }
     } else {
-
       getEvents().then((events) => {
         if (this.mounted) {
-
-         
           this.setState({
             events,
             locations: extractLocations(events),
@@ -96,32 +93,36 @@ class App extends Component {
     this.mounted = false
   }
 
-
   render() {
     const { events, locations, offlineText, showWelcomeScreen } = this.state
 
     if (showWelcomeScreen === undefined) return <div className='App' />
 
     return (
-      <div className='App'>
+      <>
+        <div className='App'>
+          <div className='topBar'>
+            <h4 className='appTitle'>Meet App</h4>
+            <CitySearch
+              locations={locations}
+              updateEvents={this.updateEvents}
+            />
+            <NumberOfEvents updateNumberOfEvents={this.updateNumberOfEvents} />
+          </div>
 
-        <div className='topBar'>
-          <h4 className='appTitle'>Meet App</h4>
-          <CitySearch locations={locations} updateEvents={this.updateEvents} />
-          <NumberOfEvents updateNumberOfEvents={this.updateNumberOfEvents} />
+          <OfflineAlert text={offlineText} />
+
+          <EventList events={events} />
+          <OfflineAlert text={this.state.OfflineAlertText} />
+
+          <WelcomeScreen
+            showWelcomeScreen={this.state.showWelcomeScreen}
+            getAccessToken={() => {
+              getAccessToken()
+            }}
+          />
         </div>
-        <OfflineAlert id='OfflineAlert' text={offlineText} />
-
-        <EventList events={events} />
-        <OfflineAlert text={this.state.OfflineAlertText} />
-
-        <WelcomeScreen
-          showWelcomeScreen={this.state.showWelcomeScreen}
-          getAccessToken={() => {
-            getAccessToken()
-          }}
-        />
-      </div>
+      </>
     )
   }
 }
