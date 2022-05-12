@@ -4,7 +4,13 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 export const EventGenre = ({ events }) => {
   useEffect(() => {
     const getData = () => {
-      const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS']
+      const genres = [
+        'React',
+        'JavaScript',
+        'Node',
+        'jQuery',
+        'AngularJS-Remote',
+      ]
       const data = genres.map((genre) => {
         const value = events.filter((event) =>
           event.summary.split(' ').includes(genre)
@@ -27,7 +33,8 @@ export const EventGenre = ({ events }) => {
     outerRadius,
     percent,
     index,
-  }) => {
+    name,
+  }: any) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5
     const x = cx + radius * Math.cos(-midAngle * RADIAN)
     const y = cy + radius * Math.sin(-midAngle * RADIAN)
@@ -36,11 +43,12 @@ export const EventGenre = ({ events }) => {
       <text
         x={x}
         y={y}
-        fill='white'
+        fill='black'
         textAnchor={x > cx ? 'start' : 'end'}
         dominantBaseline='central'
       >
-        {`${(percent * 100).toFixed(0)}%`}
+        {/* {`${(percent * 100).toFixed(0)}%`} */}
+        {`${name} ${(percent * 100).toFixed(0)}%`}
       </text>
     )
   }
@@ -48,14 +56,13 @@ export const EventGenre = ({ events }) => {
   return (
     <ResponsiveContainer height={400}>
       <PieChart>
-        <h4>Share of event genres</h4>
         <Pie
           data={data}
-          cx={200}
-          cy={200}
+          cx={300}
+          cy={160}
           labelLine={false}
           label={renderCustomizedLabel}
-          outerRadius={80}
+          outerRadius={150}
           fill='#8884d8'
           dataKey='value'
         >
