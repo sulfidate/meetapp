@@ -8,16 +8,16 @@ live demo: https://sulfidate.github.io/meetapp/
 
 ### mobile View
 
-![Welcome to the Meet](https://user-images.githubusercontent.com/78739948/173131675-784c3323-18a8-40ca-b685-5d6addd7f716.jpeg)
-![Meet App](https://user-images.githubusercontent.com/78739948/173131694-b4fc3e77-12ff-438d-8b99-9419e4fd8c82.jpeg)
-![Intro to AngularJS-Remote](https://user-images.githubusercontent.com/78739948/173131703-3609d9c8-216b-41fa-b1f3-5c16e61b2bee.jpeg)
+<img width="200" alt="Welcome to the Meet app" src="https://user-images.githubusercontent.com/78739948/173131675-784c3323-18a8-40ca-b685-5d6addd7f716.jpeg">
+<img width="200" alt="Meet App" src="https://user-images.githubusercontent.com/78739948/173131703-3609d9c8-216b-41fa-b1f3-5c16e61b2bee.jpeg">
+<img width="200" alt="Welcome to the Meet app" src="https://user-images.githubusercontent.com/78739948/173131694-b4fc3e77-12ff-438d-8b99-9419e4fd8c82.jpeg">
 
 
 ### desktop view
 
-<img width="966" alt="Welcome to the Meet app" src="https://user-images.githubusercontent.com/78739948/173130797-2be894bb-71e1-4168-859e-a8f550372170.png">
+<img width="500" alt="Welcome to the Meet app" src="https://user-images.githubusercontent.com/78739948/173130797-2be894bb-71e1-4168-859e-a8f550372170.png">
 
-<img width="1042" alt="Pasted Graphic 2" src="https://user-images.githubusercontent.com/78739948/173130835-8440e2c0-4f30-4a2e-8d1a-7ff86166dbfe.png">
+<img width="500" alt="Pasted Graphic 2" src="https://user-images.githubusercontent.com/78739948/173130835-8440e2c0-4f30-4a2e-8d1a-7ff86166dbfe.png">
 
 ## Context
 Serverless and PWAs have grown in popularity over the last few years, and they’re both considered to be the future of web development. By combining these two concepts, your app will not only work as a normal web application, but it will also reap the benefits of both serverless architecture and PWAs:
