@@ -7,11 +7,10 @@ The application uses the Google Calendar API to fetch upcoming events for a sele
 live demo: https://sulfidate.github.io/meetapp/
 
 ### mobile View
-![5F217EE6-76D2-40F7-9F6B-79C4264DFED4](https://user-images.githubusercontent.com/78739948/173130871-a8fc5aac-02cb-4095-bc88-3076fe8c64f5.jpeg)
-![C2421BEA-C8B7-4E24-85E5-349DAB04363B](https://user-images.githubusercontent.com/78739948/173130884-46000087-677b-45f1-b870-e9c8899adb6f.jpeg)
-![9682C938-45C7-48EC-9F26-D5BD74B80133](https://user-images.githubusercontent.com/78739948/173130904-e633747a-bf84-4ec6-8293-53bd2b400713.jpeg)
 
-
+![Welcome to the Meet](https://user-images.githubusercontent.com/78739948/173131675-784c3323-18a8-40ca-b685-5d6addd7f716.jpeg)
+![Meet App](https://user-images.githubusercontent.com/78739948/173131694-b4fc3e77-12ff-438d-8b99-9419e4fd8c82.jpeg)
+![Intro to AngularJS-Remote](https://user-images.githubusercontent.com/78739948/173131703-3609d9c8-216b-41fa-b1f3-5c16e61b2bee.jpeg)
 
 
 ### desktop view
