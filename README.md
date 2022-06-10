@@ -2,6 +2,24 @@
 ## Objective
 To build a serverless, progressive web application (PWA) with React using a test-driven development (TDD) technique. 
 The application uses the Google Calendar API to fetch upcoming events for a selected city.
+## Description
+
+live demo: https://sulfidate.github.io/meetapp/
+
+### mobile View
+![5F217EE6-76D2-40F7-9F6B-79C4264DFED4](https://user-images.githubusercontent.com/78739948/173130871-a8fc5aac-02cb-4095-bc88-3076fe8c64f5.jpeg)
+![C2421BEA-C8B7-4E24-85E5-349DAB04363B](https://user-images.githubusercontent.com/78739948/173130884-46000087-677b-45f1-b870-e9c8899adb6f.jpeg)
+![9682C938-45C7-48EC-9F26-D5BD74B80133](https://user-images.githubusercontent.com/78739948/173130904-e633747a-bf84-4ec6-8293-53bd2b400713.jpeg)
+
+
+
+
+### desktop view
+
+<img width="966" alt="Welcome to the Meet app" src="https://user-images.githubusercontent.com/78739948/173130797-2be894bb-71e1-4168-859e-a8f550372170.png">
+
+<img width="1042" alt="Pasted Graphic 2" src="https://user-images.githubusercontent.com/78739948/173130835-8440e2c0-4f30-4a2e-8d1a-7ff86166dbfe.png">
+
 ## Context
 Serverless and PWAs have grown in popularity over the last few years, and they’re both considered to be the future of web development. By combining these two concepts, your app will not only work as a normal web application, but it will also reap the benefits of both serverless architecture and PWAs:
 - Serverless:​ No backend maintenance, easy to scale, always available, no cost for idle time.
