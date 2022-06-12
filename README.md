@@ -14,6 +14,8 @@ Last but not least, you’ll add some graphs to your app, which will make it mor
 
 => live demo: https://sulfidate.github.io/meetapp/
 
+=> demo view: https://youtube.com/shorts/oe_yP-F8q1Q?feature=share
+
 ### mobile View
 
 <img width="200" alt="Welcome to the Meet app" src="https://user-images.githubusercontent.com/78739948/173131675-784c3323-18a8-40ca-b685-5d6addd7f716.jpeg">
